@@ -1,0 +1,38 @@
+Python – Gemini AI Document Generator
+
+
+
+import os
+import google.generativeai as genai
+
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+model = genai.GenerativeModel("gemini-1.5-pro")
+
+
+class GeminiDocumentGenerator:
+
+    def generate_document(self, document_type, parties, terms, dates):
+
+        prompt = f"""
+        Create a professional legal document.
+
+        Document Type: {document_type}
+        Parties: {parties}
+        Terms and Conditions: {terms}
+        Effective Date: {dates}
+
+        Generate a structured document with:
+        1. Title
+        2. Parties
+        3. Terms and Conditions
+        4. Responsibilities
+        5. Effective Date
+        6. Signature section
+
+        Use clear and professional legal language.
+        """
+
+        response = model.generate_content(prompt)
+
+        return response.text
